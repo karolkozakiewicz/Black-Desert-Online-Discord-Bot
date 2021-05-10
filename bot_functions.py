@@ -159,3 +159,15 @@ class Config:
                 return False
         except:
             return False
+
+    @staticmethod
+    def get_api_keys():
+        try:
+            with open('./key.txt', 'r') as f:
+                api_key = f.read().splitlines()
+            return api_key
+        except:
+            print("Can't read api key. Create key.txt file and paste api_key there.")
+            return None
+
+
