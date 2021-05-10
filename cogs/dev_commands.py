@@ -1,7 +1,7 @@
 from discord.ext import commands
-from bot_functions import Config
+from functions.bdo_functions import Config
 import logging
-from bot_functions import Bot_Functions
+from functions.bdo_functions import Bot_Functions
 from database import DatabaseSender
 import datetime
 from functions import functions
@@ -28,6 +28,16 @@ class DevCommands(commands.Cog):
 
         self.server_id = self.bot.guilds[0].id
 
+    @commands.command(name='cogs')
+    async def cogs(self, ctx, *args):
+        try:
+            cog = args[0]
+            self.bot.load_extension(f'cogs.{cog}')
+            print('Cogs reloaded')
+        except Exception as e:
+            print(e)
+            logging.info(e)
+
 
     @commands.Cog.listener()
     async def _onmessagedebug(self, ctx):
@@ -41,7 +51,7 @@ class DevCommands(commands.Cog):
 
     @commands.command(name='dev', pass_context=True)
     async def dev(self, ctx, *args):
-        bot = self.bot
+
         try:
             if args[0] == 'show':
                 for server in self.bot.guilds:
@@ -51,7 +61,32 @@ class DevCommands(commands.Cog):
                 await ctx.author.send(self.jsonn)
 
             if args[0] == 'show_voice':
-                functions.whosonline(ctx, bot, self.server_id)
+                ids = []
+                output = []
+                beautiful_output = ""
+                for server in self.bot.guilds:
+                    for channel in server.channels:
+                        if 'voice' in channel.type:
+                            ids.append(channel.id)
+                print(ids)
+                ids2 = [channel.id for server in self.bot.guild for channel in server.channels if 'voice' in channel.type]
+                print(ids2)
+                for channel in ids:
+                    try:
+                        channel = self.bot.get_channel(channel)
+                        members = channel.members
+                        mem_name = [member.display_name for member in members]
+                        mem_ids = [member.id for member in members]
+                        if len(mem_ids) != 0:
+                            output.append([channel.name, mem_name])
+                    except Exception as e:
+                        logging.info(e)
+
+                for x in output:
+                    beautiful_output += f"{x[0]}: {x[1]}\n"
+                if len(beautiful_output) < 1:
+                    beautiful_output += "Brak danych"
+                await ctx.author.send(beautiful_output)
 
         except Exception as e:
             print(e)

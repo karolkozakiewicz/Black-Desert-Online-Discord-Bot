@@ -1,7 +1,7 @@
-from boss_list_request import Timers
+from functions.boss_list_request import Timers
 from PIL import Image
 import io
-import binary_imgs as binary_images
+import functions.binary_imgs as binary_images
 import json
 
 class Bot_Functions():
@@ -160,14 +160,6 @@ class Config:
         except:
             return False
 
-    @staticmethod
-    def get_api_keys():
-        try:
-            with open('./key.txt', 'r') as f:
-                api_key = f.read().splitlines()
-            return api_key
-        except:
-            print("Can't read api key. Create key.txt file and paste api_key there.")
-            return None
+
 
 

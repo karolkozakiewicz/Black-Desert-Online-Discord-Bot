@@ -1,12 +1,12 @@
-from bot_functions import Config
+from functions.bdo_functions import Config
 import discord
 from discord.ext import commands
 import logging
-from bot_functions import Bot_Functions
-from bdo_info import BdoInfoCharacter
-from bdo_info import BdoInfoGuild
+from functions.bdo_functions import Bot_Functions
+from functions.bdo_info import BdoInfoCharacter
+from functions.bdo_info import BdoInfoGuild
 import requests
-from bot_functions import ConvertTwoImagesIntoOne
+from functions.bdo_functions import ConvertTwoImagesIntoOne
 import os
 from database import DatabaseSender
 

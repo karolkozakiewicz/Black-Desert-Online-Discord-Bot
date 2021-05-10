@@ -1,6 +1,3 @@
-import logging
-import discord
-
 def assign_data(ctx):
     data = {}
     try:
@@ -41,34 +38,11 @@ def assign_data(ctx):
         data['message'] = None
     return data
 
-# def whosonline(ctx, bot, server_id):
-#
-#     print(ctx.guild.id)
-#
-#
-#     # moj_id = ctx.author.id
-#     #
-#     # nazwy_roli = ", ".join([str(r.name) for r in ctx.guild.roles])
-#     # channels_names = (", ".join([str(r.name) for r in ctx.guild.channels]))
-#     # ids = [int(r.id) for r in ctx.guild.channels]
-#     #
-#     # output = []
-#     # beautiful_output = ""
-#     # for channel_id in ids:
-#     #
-#     #     try:
-#     #         channel = bot.get_channel(channel_id)  # gets the channel you want to get the list from
-#     #         if str(channel.type) == 'voice':
-#     #             members = channel.members  # finds members connected to the channel
-#     #             mem_name = [member.display_name for member in members]
-#     #             mem_ids = [member.id for member in members]
-#     #             if len(mem_ids) != 0:
-#     #                 output.append([channel.name, mem_name])
-#     #     except Exception as e:
-#     #         logging.info(e)
-#     # for x in output:
-#     #     beautiful_output += f"{x[0]}: {x[1]}\n"
-#     # if len(beautiful_output) < 1:
-#     #     beautiful_output += "Brak danych"
-#     # print(beautiful_output)
-#     # # return (beautiful_output)
+def get_api_keys():
+    try:
+        with open('./key.txt', 'r') as f:
+            api_key = f.read().splitlines()
+        return api_key
+    except:
+        print("Can't read api key. Create key.txt file and paste api_key there.")
+        return None

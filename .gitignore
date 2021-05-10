@@ -1,8 +1,11 @@
 .idea/
-BOT.log
+functions/BOT.log
 Lib/
 Scripts/
 __pycache__/
 key.txt
 pyvenv.cfg
 notepad
+test.py
+config.json
+BOT.log

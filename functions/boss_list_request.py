@@ -4,9 +4,6 @@ import re
 import datetime
 import pandas as pd
 
-
-
-
 class Timers():
 
     def __init__(self):

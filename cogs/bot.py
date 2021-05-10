@@ -1,7 +1,7 @@
 import logging
 from discord.ext import commands
-from bot_functions import Bot_Functions
-from bot_functions import Config
+from functions.bdo_functions import Bot_Functions
+from functions.bdo_functions import Config
 from database import DatabaseSender
 
 
