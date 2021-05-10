@@ -68,9 +68,6 @@ class DevCommands(commands.Cog):
                     for channel in server.channels:
                         if 'voice' in channel.type:
                             ids.append(channel.id)
-                print(ids)
-                ids2 = [channel.id for server in self.bot.guild for channel in server.channels if 'voice' in channel.type]
-                print(ids2)
                 for channel in ids:
                     try:
                         channel = self.bot.get_channel(channel)

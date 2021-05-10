@@ -11,7 +11,7 @@ import os
 from functions.database import DatabaseSender
 
 
-class DiscordBot(commands.Cog):
+class BdoBot(commands.Cog):
 
     def __init__(self, bot):
 
@@ -146,4 +146,4 @@ class DiscordBot(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(DiscordBot(bot))
+    bot.add_cog(BdoBot(bot))
