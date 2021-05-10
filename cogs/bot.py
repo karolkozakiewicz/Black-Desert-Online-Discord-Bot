@@ -1,22 +1,18 @@
 import logging
 from discord.ext import commands
-from functions.bdo_functions import Bot_Functions
-from functions.bdo_functions import Config
-from functions.database import DatabaseSender
-
+from functions.bdo_functions import BossFunctions
+from functions.bot_functions import Functions
 
 class Bot(commands.Cog):
 
     def __init__(self, bot):
-
+        """
+        :param bot: dict with message data
+        """
+        Functions.logging_settings()
         self.DEBUG = False
         self.bot = bot
-        self.config = Config()
-        logging.basicConfig(level=logging.INFO, filemode='a', datefmt='%Y-%m-%d %H:%M:%S',
-                            format='%(levelname)s : %(asctime)s : %(message)s',
-                            filename='./BOT.log')
-        self.function = Bot_Functions()
-        self.db = DatabaseSender('localhost', 5432, 'postgres', 'MIsiek08', 'postgres')
+        self.function = BossFunctions()
         self.jsonn = {}
         self.server_id = 0
 

@@ -1,12 +1,10 @@
-from functions.bdo_functions import Config
+from functions.bdo_functions import BdoBotConfig, finder, BossFunctions, ConvertTwoImagesIntoOne
 import discord
 from discord.ext import commands
 import logging
-from functions.bdo_functions import Bot_Functions
-from functions.bdo_info import BdoInfoCharacter
-from functions.bdo_info import BdoInfoGuild
+from functions.bdo_info import BdoInfoCharacter, BdoInfoGuild
+from functions.bot_functions import Functions
 import requests
-from functions.bdo_functions import ConvertTwoImagesIntoOne
 import os
 from functions.database import DatabaseSender
 
@@ -14,15 +12,11 @@ from functions.database import DatabaseSender
 class BdoBot(commands.Cog):
 
     def __init__(self, bot):
-
         self.DEBUG = False
         self.bot = bot
-        self.config = Config()
-        logging.basicConfig(level=logging.INFO, filemode='a', datefmt='%Y-%m-%d %H:%M:%S',
-                            format='%(levelname)s : %(asctime)s : %(message)s',
-                            filename='./BOT.log')
-        self.function = Bot_Functions()
-        self.db = DatabaseSender('localhost', 5432, 'postgres', 'MIsiek08', 'postgres')
+        self.config = BdoBotConfig()
+        Functions.logging_settings()
+        self.function = BossFunctions()
         self.jsonn = {}
 
     @commands.command(name='bossy')
@@ -54,7 +48,7 @@ class BdoBot(commands.Cog):
         await ctx.channel.purge(limit=1)
         roles = [str(x) for x in ctx.author.roles]
         try:
-            respond = self.function.finder(args, config=self.config, roles=roles)
+            respond = finder(args, config=self.config, roles=roles)
             await ctx.send(respond)
         except Exception as e:
             logging.exception(e)
@@ -68,6 +62,7 @@ class BdoBot(commands.Cog):
             await ctx.send(respond)
         except Exception as e:
             logging.info(e)
+
 
     @commands.command(name='poradniki')
     async def _poradniki(self, ctx, *args):
@@ -125,8 +120,6 @@ class BdoBot(commands.Cog):
 
     @commands.command(pass_context=True, aliases=['h', 'help'])
     async def _help(self, ctx):
-
-        # await ctx.channel.purge(limit=1)
         try:
             respond = """
             ***Help:
@@ -143,7 +136,6 @@ class BdoBot(commands.Cog):
 
         except Exception as e:
             logging.info(e)
-
 
 def setup(bot):
     bot.add_cog(BdoBot(bot))

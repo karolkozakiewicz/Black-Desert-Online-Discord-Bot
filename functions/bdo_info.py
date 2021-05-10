@@ -1,11 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 import itertools
+from functions.bot_functions import Functions
+import logging
 
-
-class BdoInfoCharacter():
+class BdoInfoCharacter:
 
     def __init__(self, username, config=None):
+        Functions.logging_settings()
         self.user_url = None
         self.config = config
         self.username = username
@@ -28,7 +30,8 @@ class BdoInfoCharacter():
                 href = soup.find('div', {'class': 'box_list_area'}).find('div', {'class': 'title'}).find('a')['href']
                 self.user_url = href
                 return True
-            except:
+            except Exception as e:
+                logging.info(e)
                 return False
 
     def nick_blocked(self) -> bool:
@@ -43,13 +46,13 @@ class BdoInfoCharacter():
             profile_detail = soup.find('div', {'class': 'profile_detail'})
 
             family_name = profile_detail.find('p', {'class': 'nick'}).text
-            region_info = profile_detail.find('span', {'class':'region_info eu'}).text
+            region_info = profile_detail.find('span', {'class': 'region_info eu'}).text
             guild = profile_detail.find('span', {'class': 'desc guild'}).text.strip()
             created_on = profile_detail.findAll('span', {'class': 'desc'})[-1].text
             self.all_character_list.append(family_name)
             output = f"Familyname: ***{family_name}***\n" \
-                     f"Reagion_info: ***{region_info}***\n"\
-                     f"Guild: ***{guild}***\n"\
+                     f"Reagion_info: ***{region_info}***\n" \
+                     f"Guild: ***{guild}***\n" \
                      f"Created on: ***{created_on}***"
             char_list = self._get_character_list()
             output += f'```{char_list}```'
@@ -60,7 +63,6 @@ class BdoInfoCharacter():
         else:
             self.character_list = 'No information about user'
             return self.character_list
-
 
     def _get_character_list(self):
         soup = BeautifulSoup(self.site_html, features='html.parser')
@@ -88,7 +90,7 @@ class BdoInfoGuild:
     def guild(self):
         try:
             bdo_url = f'https://www.naeu.playblackdesert.com/en-US/Adventure/Guild/GuildProfile?guildName=' \
-                           f'{self.guildname}&region=EU'
+                      f'{self.guildname}&region=EU'
             r = requests.get(bdo_url).text
             soup = BeautifulSoup(r, features='html.parser')
             table = soup.find('div', {'class': 'box_list_area'})

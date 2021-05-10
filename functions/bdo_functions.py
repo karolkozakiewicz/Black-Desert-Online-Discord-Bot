@@ -3,8 +3,50 @@ from PIL import Image
 import io
 import functions.binary_imgs as binary_images
 import json
+from functions.bot_functions import Functions
+import logging
 
-class Bot_Functions():
+
+def finder(args, config=None, roles=None) -> list or str:
+    help_message = """***Usage:
+- $finder block Nick
+- $finder remove Nick - WYMAGANA ROLA 'BDOBOT'
+- $finder list
+***"""
+
+    try:
+        if args[0] == 'list':
+            return config.blocked_users_list
+
+        elif args[0] == 'block':
+            nick = args[1]
+            action = config.add_to_blocked_users(nick)
+            if action:
+                return f'{nick} added to block list.'
+            else:
+                return f'{nick} already on the list.'
+
+        elif args[0] == 'remove':
+
+            if any(i in config.permissions for i in roles):
+                nick = args[1]
+                action = config.remove_from_blocked_users(nick)
+                if action:
+                    return f'{nick} removed from block list.'
+                else:
+                    return f'{nick} not on the list.'
+            else:
+                return f'You have no permission'
+
+    except Exception as e:
+        logging.info(e)
+        return help_message
+
+
+class BossFunctions:
+
+    def __init__(self):
+        Functions.logging_settings()
 
     def bossy(self, args):
         try:
@@ -20,6 +62,7 @@ class Bot_Functions():
             return e
 
     def poradniki(self, args) -> list or str:
+
         help_message = """***Usage:
 - $poradniki ap
 - $poradniki dp
@@ -29,7 +72,6 @@ class Bot_Functions():
 
         try:
             if len(args) == 0:
-                print(help_message)
                 return help_message
             elif args[0] == 'ap':
                 return binary_images.ap_brackets
@@ -43,44 +85,8 @@ class Bot_Functions():
                 return binary_images.caphras_lvl
             else:
                 return help_message
-
         except Exception as e:
             return e
-
-    def finder(self, args, config=None, roles=None) -> list or str:
-        help_message = """***Usage:
-- $finder block Nick
-- $finder remove Nick - WYMAGANA ROLA 'BDOBOT'
-- $finder list
-***"""
-
-        try:
-            if args[0] == 'list':
-                return config.blocked_users_list
-
-            elif args[0] == 'block':
-                nick = args[1]
-                action = config.add_to_blocked_users(nick)
-                if action:
-                    return f'{nick} added to block list.'
-                else:
-                    return f'{nick} already on the list.'
-
-            elif args[0] == 'remove':
-
-                if any(i in config.permissions for i in roles):
-                    nick = args[1]
-                    action = config.remove_from_blocked_users(nick)
-                    if action:
-                        return f'{nick} removed from block list.'
-                    else:
-                        return f'{nick} not on the list.'
-                else:
-                    return f'You have no permission'
-
-        except:
-            return help_message
-
 
 
 class ConvertTwoImagesIntoOne:
@@ -104,34 +110,34 @@ class ConvertTwoImagesIntoOne:
         new_im.save('image.png')
 
 
-
-class Config:
+class BdoBotConfig:
 
     def __init__(self):
-        self.CONFIG = ""
         self.config_default_str = """{"config": {"finder_blocked_users": [], "permissions" : ["BDOBOT"]}}"""
-        self.load_config()
+        self.CONFIG = self.load_config()
         self.blocked_users_list = self.CONFIG['config']['finder_blocked_users']
         self.permissions = self.CONFIG['config']['permissions']
 
-
     def load_config(self):
-
         try:
             with open('config.json', 'r') as f:
-                self.CONFIG = json.load(f)
-        except:
+                config = json.load(f)
+                return config
+        except Exception as e:
+            logging.info(e)
             with open('config.json', 'w') as f:
                 f.write(self.config_default_str)
             with open('config.json', 'r') as f:
-                self.CONFIG = json.load(f)
+                config = json.load(f)
+                return config
 
     def update_config(self):
         try:
             with open('config.json', 'w') as f:
                 f.write(json.dumps(self.CONFIG))
             return True
-        except:
+        except Exception as e:
+            logging.info(e)
             return False
 
     def add_to_blocked_users(self, nickname):
@@ -142,12 +148,12 @@ class Config:
                 return True
             else:
                 return False
-        except:
+        except Exception as e:
+            logging.info(e)
             return False
 
     def remove_from_blocked_users(self, nickname):
         try:
-            nickname = nickname
             users = self.CONFIG['config']['finder_blocked_users']
             if nickname.lower() in self.blocked_users_list:
                 for i, x in enumerate(users):
@@ -157,9 +163,6 @@ class Config:
                 return True
             else:
                 return False
-        except:
+        except Exception as e:
+            logging.info(e)
             return False
-
-
-
-
