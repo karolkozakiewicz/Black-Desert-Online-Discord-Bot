@@ -2,7 +2,7 @@ from discord.ext import commands
 from functions.bdo_functions import Config
 import logging
 from functions.bdo_functions import Bot_Functions
-from database import DatabaseSender
+from functions.database import DatabaseSender
 import datetime
 from functions import functions
 

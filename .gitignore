@@ -7,5 +7,6 @@ key.txt
 pyvenv.cfg
 notepad
 test.py
-config.json
+functions/config.json
 BOT.log
+config.json

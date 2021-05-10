@@ -8,7 +8,7 @@ from functions.bdo_info import BdoInfoGuild
 import requests
 from functions.bdo_functions import ConvertTwoImagesIntoOne
 import os
-from database import DatabaseSender
+from functions.database import DatabaseSender
 
 
 class DiscordBot(commands.Cog):

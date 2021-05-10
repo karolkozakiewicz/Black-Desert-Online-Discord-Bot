@@ -2,7 +2,7 @@ import logging
 from discord.ext import commands
 from functions.bdo_functions import Bot_Functions
 from functions.bdo_functions import Config
-from database import DatabaseSender
+from functions.database import DatabaseSender
 
 
 class Bot(commands.Cog):
