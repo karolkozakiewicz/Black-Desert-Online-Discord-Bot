@@ -41,7 +41,37 @@ self.username = 'username'
 self.password = 'password'
 self.database_name = 'dbname'
 ```
-• If you don't want to use database, edit dev_commands.py file and comment out this line:
+If you don't want to use database, edit dev_commands.py file and comment out this line:
 ```
 #self.db.add_to_database(data)
 ```
+## Bot prefix
+You can change bot prefix in main.py file 
+
+```
+bot = commands.Bot(command_prefix='$') 
+```
+> Default prefix is $
+## Commands
+
+```
+Help:
+    - $character Nick
+    - $guild GuildName
+    - $finder ($character command settings)
+
+    - $bossy # pandas DataFrame string table of all bosses in BDO game
+    - $bossy next # next boss today
+
+    - $poradniki # some guides about game
+    
+Dev commands:
+    - $dev show_voice  # showing users online on all voice channels
+    - $ cogs [cog_name] # loads new cog class file
+    - $onmessagedebug # sends message information on the chat
+```
+
+
+
+
+
