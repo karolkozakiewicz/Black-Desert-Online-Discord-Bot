@@ -2,6 +2,11 @@ from discord.ext import commands
 import os
 from functions.bot_functions import Functions
 import datetime
+import sys
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
 
 bot = commands.Bot(command_prefix='$')
 bot.remove_command('help')
@@ -14,4 +19,4 @@ if __name__ == '__main__':
             bot.load_extension(f'cogs.{filename[:-3]}')
 
 
-bot.run(api_key[1])
+bot.run(api_key[0])

@@ -120,20 +120,20 @@ class BdoBotConfig:
 
     def load_config(self):
         try:
-            with open('config.json', 'r') as f:
+            with open('configs/config.json', 'r') as f:
                 config = json.load(f)
                 return config
         except Exception as e:
             logging.info(e)
-            with open('config.json', 'w') as f:
+            with open('configs/config.json', 'w') as f:
                 f.write(self.config_default_str)
-            with open('config.json', 'r') as f:
+            with open('configs/config.json', 'r') as f:
                 config = json.load(f)
                 return config
 
     def update_config(self):
         try:
-            with open('config.json', 'w') as f:
+            with open('configs/config.json', 'w') as f:
                 f.write(json.dumps(self.CONFIG))
             return True
         except Exception as e:

@@ -5,7 +5,6 @@ class Functions:
 
     def __init__(self):
         self.logging_settings()
-        self.logging_settings()
 
     @staticmethod
     def assign_data(ctx):
@@ -51,7 +50,7 @@ class Functions:
     @staticmethod
     def get_api_keys():
         try:
-            with open('./key.txt', 'r') as f:
+            with open('configs/key.txt', 'r') as f:
                 api_key = f.read().splitlines()
             return api_key
         except:
@@ -64,4 +63,4 @@ class Functions:
                                    filemode='a',
                                    datefmt='%Y-%m-%d %H:%M:%S',
                                    format='%(levelname)s : %(asctime)s : %(message)s',
-                                   filename='./BOT.log')
+                                   filename='logs/BOT.log')
