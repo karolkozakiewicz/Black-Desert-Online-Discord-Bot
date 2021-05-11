@@ -33,6 +33,7 @@ python3 main.py
 ## Configuration
 
 • In case to run this bot, you have to create key.txt file inside configs folder and paste there your Bot's TOKEN
+
 • Edit database.py file and paste there your database credentials
 ```
 self.ip = 'localhost'
