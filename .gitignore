@@ -3,11 +3,8 @@ functions/BOT.log
 Lib/
 Scripts/
 __pycache__/
-configs/key.txt
 pyvenv.cfg
 notepad
 test.py
-functions/config.json
 logs/BOT.log
-configs/config.json
 functions/database.py
