@@ -5,7 +5,6 @@ Scripts/
 __pycache__/
 pyvenv.cfg
 notepad
-test.py
 logs/BOT.log
 functions/database.py
 configs/config.json
