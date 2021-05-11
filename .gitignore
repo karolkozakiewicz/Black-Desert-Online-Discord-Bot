@@ -10,3 +10,4 @@ test.py
 functions/config.json
 BOT.log
 config.json
+functions/database.py
