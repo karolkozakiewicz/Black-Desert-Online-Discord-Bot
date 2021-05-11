@@ -41,7 +41,7 @@ self.username = 'username'
 self.password = 'password'
 self.database_name = 'dbname'
 ```
-If you don't want to use database, edit dev_commands.py file and comment out this line:
+• If you don't want to use database, edit dev_commands.py file and comment out this line:
 ```
 #self.db.add_to_database(data)
 ```
