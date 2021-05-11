@@ -8,7 +8,7 @@ class DatabaseSender():
 
     def __init__(self):
         Functions.logging_settings()
-        self.ip = 'ip'
+        self.ip = 'localhost'
         self.port = 5432
         self.username = 'username'
         self.password = 'password'
