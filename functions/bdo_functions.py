@@ -59,6 +59,7 @@ class BossFunctions:
                 print('xxx')
                 # return [Timers().todays_bosses]
         except Exception as e:
+
             return e
 
     def poradniki(self, args) -> list or str:

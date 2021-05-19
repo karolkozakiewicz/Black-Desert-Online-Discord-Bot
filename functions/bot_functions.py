@@ -1,4 +1,20 @@
 import logging
+from googletrans import Translator
+
+class Translation:
+
+    @staticmethod
+    def translatee(to_lang, message):
+        translator = Translator()
+        translations = ['en', 'pl']
+        _message = ""
+        for m in message:
+            _message += m + " "
+        _message.replace("\n", ".")
+        if to_lang.lower() not in translations:
+            to_lang = 'en'
+        translation = translator.translate(_message, dest=to_lang)
+        return translation.text
 
 
 class Functions:
