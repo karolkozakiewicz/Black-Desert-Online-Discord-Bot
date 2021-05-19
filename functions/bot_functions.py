@@ -14,6 +14,7 @@ class Translation:
         if to_lang.lower() not in translations:
             to_lang = 'en'
         translation = translator.translate(_message, dest=to_lang)
+
         return translation.text
 
 
